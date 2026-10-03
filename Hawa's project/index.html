@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Accessible Malaysian banknote scanner for blind and visually impaired users."
+    >
+
+    <title>Accessible Malaysian Cash Scanner</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- TensorFlow.js -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js">
+    </script>
+
+    <!-- Teachable Machine -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js">
+    </script>
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- Header -->
+        <header class="header">
+            <div>
+                <p class="eyebrow">ACCESSIBLE AI</p>
+
+                <h1>Malaysian Cash Scanner</h1>
+
+                <p class="subtitle">
+                    Voice-first banknote recognition
+                </p>
+            </div>
+
+            <div
+                id="modelStatus"
+                class="status-badge"
+                role="status"
+                aria-live="polite"
+            >
+                Loading AI...
+            </div>
+        </header>
+
+
+        <!-- Accessibility introduction -->
+        <section
+            class="accessibility-card"
+            aria-labelledby="accessibilityTitle"
+        >
+            <h2 id="accessibilityTitle">
+                Accessibility Mode
+            </h2>
+
+            <p>
+                This scanner automatically announces detected banknotes
+                and your running total.
+            </p>
+
+            <div
+                id="screenReaderStatus"
+                class="sr-only"
+                role="status"
+                aria-live="assertive"
+            ></div>
+        </section>
+
+
+        <!-- Camera -->
+        <section
+            class="scanner-card"
+            aria-labelledby="scannerTitle"
+        >
+
+            <h2 id="scannerTitle">Banknote Scanner</h2>
+
+            <div class="camera-container">
+
+                <video
+                    id="camera"
+                    autoplay
+                    playsinline
+                    muted
+                    aria-label="Camera view for scanning a Malaysian banknote"
+                ></video>
+
+                <div
+                    class="scanner-frame"
+                    aria-hidden="true"
+                >
+                    <div class="scan-line"></div>
+                </div>
+
+                <div
+                    id="cameraMessage"
+                    class="camera-message"
+                >
+                    Camera is not running
+                </div>
+
+            </div>
+
+
+            <!-- Main controls -->
+            <div class="controls">
+
+                <button
+                    id="startCameraBtn"
+                    class="primary-button"
+                    type="button"
+                    aria-label="Start camera and automatic banknote scanning"
+                >
+                    📷 Start Camera
+                </button>
+
+                <button
+                    id="stopCameraBtn"
+                    class="secondary-button"
+                    type="button"
+                    aria-label="Stop camera and scanning"
+                    disabled
+                >
+                    ⏹ Stop Camera
+                </button>
+
+                <button
+                    id="scanBtn"
+                    class="secondary-button"
+                    type="button"
+                    aria-label="Scan banknote now"
+                    disabled
+                >
+                    🔍 Scan Now
+                </button>
+
+                <button
+                    id="voiceBtn"
+                    class="secondary-button"
+                    type="button"
+                    aria-label="Start voice commands"
+                >
+                    🎙 Voice Commands
+                </button>
+
+            </div>
+
+
+            <p
+                id="cameraHelp"
+                class="help-text"
+            >
+                Start the camera, then hold one banknote in front of it.
+                The scanner will automatically detect it.
+            </p>
+
+        </section>
+
+
+        <!-- Detection result -->
+        <section
+            class="result-card"
+            aria-labelledby="resultTitle"
+        >
+
+            <h2 id="resultTitle">Detection Result</h2>
+
+            <div
+                id="detectedAmount"
+                class="detected-amount"
+                aria-live="assertive"
+            >
+                —
+            </div>
+
+            <p id="resultDescription">
+                No banknote detected yet.
+            </p>
+
+
+            <div class="confidence-section">
+
+                <div class="confidence-header">
+                    <span>Confidence</span>
+
+                    <span
+                        id="confidenceText"
+                        aria-label="Confidence"
+                    >
+                        0%
+                    </span>
+                </div>
+
+                <div
+                    class="confidence-bar"
+                    role="progressbar"
+                    aria-label="AI detection confidence"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                >
+                    <div
+                        id="confidenceFill"
+                        class="confidence-fill"
+                    ></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Total -->
+        <section
+            class="total-card"
+            aria-labelledby="totalTitle"
+        >
+
+            <h2 id="totalTitle">Total Scanned</h2>
+
+            <div
+                id="totalAmount"
+                class="total-amount"
+                aria-live="polite"
+            >
+                RM0
+            </div>
+
+            <p id="totalSpeechText">
+                Total is zero ringgit.
+            </p>
+
+            <button
+                id="clearBtn"
+                class="danger-button"
+                type="button"
+                aria-label="Clear the scanned total"
+            >
+                🗑 Clear Total
+            </button>
+
+        </section>
+
+
+        <!-- History -->
+        <section
+            class="history-card"
+            aria-labelledby="historyTitle"
+        >
+
+            <h2 id="historyTitle">Scan History</h2>
+
+            <ul
+                id="historyList"
+                class="history-list"
+                aria-label="Banknote scan history"
+            >
+                <li class="empty-history">
+                    No banknotes scanned yet.
+                </li>
+            </ul>
+
+        </section>
+
+
+        <!-- Instructions -->
+        <section
+            class="instructions-card"
+            aria-labelledby="instructionsTitle"
+        >
+
+            <h2 id="instructionsTitle">
+                Voice Commands
+            </h2>
+
+            <p>You can say:</p>
+
+            <ul>
+                <li>"What is the total?"</li>
+                <li>"Clear total"</li>
+                <li>"Scan"</li>
+                <li>"Start scanning"</li>
+                <li>"Stop scanning"</li>
+            </ul>
+
+            <p class="note">
+                Voice commands depend on browser support.
+            </p>
+
+        </section>
+
+
+        <footer>
+            <p>
+                AI Malaysian Cash Scanner
+            </p>
+
+            <p>
+                This application identifies banknote denominations.
+                It does not verify whether a banknote is genuine or counterfeit.
+            </p>
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+</body>
+
+</html>
