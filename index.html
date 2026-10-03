@@ -1,0 +1,361 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="AI Malaysian Banknote Scanner"
+    >
+
+    <title>AI Malaysian Cash Scanner</title>
+
+
+    <!-- ============================= -->
+    <!-- TENSORFLOW.JS                 -->
+    <!-- ============================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js">
+    </script>
+
+
+    <!-- ============================= -->
+    <!-- TEACHABLE MACHINE             -->
+    <!-- ============================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js">
+    </script>
+
+
+    <!-- ============================= -->
+    <!-- CSS                           -->
+    <!-- ============================= -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================= -->
+    <!-- APP                                -->
+    <!-- ================================= -->
+
+    <div class="app">
+
+
+        <!-- ================================= -->
+        <!-- HEADER                            -->
+        <!-- ================================= -->
+
+        <header class="header">
+
+            <div class="logo">
+                💵
+            </div>
+
+            <div>
+
+                <h1>
+                    AI Cash Scanner
+                </h1>
+
+                <p>
+                    Malaysian Banknote Recognition
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================================= -->
+        <!-- AI STATUS                         -->
+        <!-- ================================= -->
+
+        <section class="status-card">
+
+            <div
+                id="statusIndicator"
+                class="status-dot loading">
+            </div>
+
+            <div>
+
+                <strong id="aiStatus">
+                    Loading AI model...
+                </strong>
+
+                <p id="aiMessage">
+                    Please wait.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- CAMERA                            -->
+        <!-- ================================= -->
+
+        <section class="scanner-card">
+
+
+            <div class="camera-wrapper">
+
+
+                <video
+                    id="camera"
+                    autoplay
+                    muted
+                    playsinline>
+                </video>
+
+
+                <!-- SCANNER OVERLAY -->
+
+                <div class="scanner-overlay">
+
+                    <div class="scanner-box">
+
+                        <div class="corner top-left"></div>
+
+                        <div class="corner top-right"></div>
+
+                        <div class="corner bottom-left"></div>
+
+                        <div class="corner bottom-right"></div>
+
+
+                        <div class="scan-line"></div>
+
+                    </div>
+
+
+                    <p class="scanner-instruction">
+
+                        Place one banknote inside the frame
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CAMERA CONTROLS -->
+
+            <div class="controls">
+
+                <button
+                    id="startCamera"
+                    class="primary-button">
+
+                    📷 Start Camera
+
+                </button>
+
+
+                <button
+                    id="scanButton"
+                    class="scan-button"
+                    disabled>
+
+                    🔍 Scan Banknote
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- RESULT                            -->
+        <!-- ================================= -->
+
+        <section class="result-card">
+
+
+            <p class="result-label">
+                DETECTED BANKNOTE
+            </p>
+
+
+            <div
+                id="resultValue"
+                class="result-value">
+
+                —
+
+            </div>
+
+
+            <div
+                id="confidence"
+                class="confidence">
+
+                Waiting for scan...
+
+            </div>
+
+
+            <!-- CONFIDENCE BAR -->
+
+            <div class="confidence-container">
+
+                <div
+                    id="confidenceBar"
+                    class="confidence-bar">
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- TOTAL                             -->
+        <!-- ================================= -->
+
+        <section class="total-card">
+
+
+            <div>
+
+                <p class="total-label">
+                    TOTAL SCANNED
+                </p>
+
+                <div
+                    id="totalValue"
+                    class="total-value">
+
+                    RM0.00
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="clearButton"
+                class="clear-button">
+
+                🗑 Clear
+
+            </button>
+
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SCAN HISTORY                      -->
+        <!-- ================================= -->
+
+        <section class="history-card">
+
+
+            <div class="history-header">
+
+                <h2>
+                    Scan History
+                </h2>
+
+                <span id="scanCount">
+                    0 scans
+                </span>
+
+            </div>
+
+
+            <div id="historyList">
+
+                <div class="empty-history">
+
+                    No banknotes scanned yet.
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- AI INFORMATION                    -->
+        <!-- ================================= -->
+
+        <section class="info-card">
+
+            <h2>
+                🤖 AI Information
+            </h2>
+
+            <p>
+                This application uses a
+                Teachable Machine image
+                classification model to identify
+                Malaysian banknotes.
+            </p>
+
+            <p>
+                The AI runs directly in your
+                browser.
+            </p>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- FOOTER                            -->
+        <!-- ================================= -->
+
+        <footer>
+
+            <p>
+                AI Malaysian Cash Scanner
+            </p>
+
+            <p>
+                HTML • CSS • JavaScript
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- JAVASCRIPT                         -->
+    <!-- ================================= -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
+```

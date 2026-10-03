@@ -1,0 +1,849 @@
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ========================================
+   BODY
+======================================== */
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #020617,
+            #0f172a,
+            #111827
+        );
+
+    color: white;
+
+    min-height: 100vh;
+
+}
+
+
+/* ========================================
+   APP
+======================================== */
+
+.app {
+
+    width: 100%;
+
+    max-width: 650px;
+
+    margin: auto;
+
+    padding: 20px;
+
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.logo {
+
+    width: 60px;
+
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #1e293b;
+
+    border-radius: 15px;
+
+    font-size: 32px;
+
+}
+
+
+.header h1 {
+
+    font-size: 28px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.header p {
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    background: #1e293b;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.status-card strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+}
+
+
+.status-card p {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+}
+
+
+.status-dot {
+
+    width: 13px;
+
+    height: 13px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+
+}
+
+
+.status-dot.loading {
+
+    background: #f59e0b;
+
+}
+
+
+.status-dot.ready {
+
+    background: #22c55e;
+
+}
+
+
+.status-dot.error {
+
+    background: #ef4444;
+
+}
+
+
+/* ========================================
+   SCANNER CARD
+======================================== */
+
+.scanner-card {
+
+    background: #1e293b;
+
+    padding: 15px;
+
+    border-radius: 18px;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* ========================================
+   CAMERA
+======================================== */
+
+.camera-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
+    background: black;
+
+    border-radius: 12px;
+
+}
+
+
+#camera {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+/* ========================================
+   SCANNER OVERLAY
+======================================== */
+
+.scanner-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    pointer-events: none;
+
+}
+
+
+.scanner-box {
+
+    position: relative;
+
+    width: 82%;
+
+    height: 50%;
+
+}
+
+
+/* ========================================
+   CORNERS
+======================================== */
+
+.corner {
+
+    position: absolute;
+
+    width: 35px;
+
+    height: 35px;
+
+    border-color: #22c55e;
+
+}
+
+
+.top-left {
+
+    top: 0;
+
+    left: 0;
+
+    border-top: 3px solid;
+
+    border-left: 3px solid;
+
+}
+
+
+.top-right {
+
+    top: 0;
+
+    right: 0;
+
+    border-top: 3px solid;
+
+    border-right: 3px solid;
+
+}
+
+
+.bottom-left {
+
+    bottom: 0;
+
+    left: 0;
+
+    border-bottom: 3px solid;
+
+    border-left: 3px solid;
+
+}
+
+
+.bottom-right {
+
+    bottom: 0;
+
+    right: 0;
+
+    border-bottom: 3px solid;
+
+    border-right: 3px solid;
+
+}
+
+
+/* ========================================
+   SCAN LINE
+======================================== */
+
+.scan-line {
+
+    position: absolute;
+
+    width: 100%;
+
+    height: 2px;
+
+    background: #22c55e;
+
+    top: 50%;
+
+    box-shadow:
+        0 0 10px #22c55e;
+
+    animation:
+        scanning 2s infinite ease-in-out;
+
+}
+
+
+@keyframes scanning {
+
+    0% {
+        top: 5%;
+    }
+
+    50% {
+        top: 95%;
+    }
+
+    100% {
+        top: 5%;
+    }
+
+}
+
+
+/* ========================================
+   INSTRUCTION
+======================================== */
+
+.scanner-instruction {
+
+    position: absolute;
+
+    bottom: 15px;
+
+    left: 0;
+
+    right: 0;
+
+    text-align: center;
+
+    font-size: 13px;
+
+    text-shadow:
+        0 1px 4px black;
+
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.controls {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+}
+
+
+button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s,
+        opacity 0.15s;
+
+}
+
+
+button:hover {
+
+    transform: translateY(-1px);
+
+}
+
+
+button:active {
+
+    transform: scale(0.98);
+
+}
+
+
+button:disabled {
+
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+.primary-button {
+
+    background: #2563eb;
+
+}
+
+
+.scan-button {
+
+    background: #16a34a;
+
+}
+
+
+/* ========================================
+   RESULT
+======================================== */
+
+.result-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #1e293b,
+            #172033
+        );
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+.result-label {
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.result-value {
+
+    font-size: 55px;
+
+    font-weight: bold;
+
+    color: #22c55e;
+
+    margin: 10px 0;
+
+}
+
+
+.confidence {
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+}
+
+
+/* ========================================
+   CONFIDENCE BAR
+======================================== */
+
+.confidence-container {
+
+    width: 100%;
+
+    height: 8px;
+
+    background: #334155;
+
+    border-radius: 10px;
+
+    margin-top: 15px;
+
+    overflow: hidden;
+
+}
+
+
+.confidence-bar {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #22c55e;
+
+    border-radius: 10px;
+
+    transition:
+        width 0.4s ease;
+
+}
+
+
+/* ========================================
+   TOTAL
+======================================== */
+
+.total-card {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    background: #1e293b;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.total-label {
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.total-value {
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+
+}
+
+
+.clear-button {
+
+    background: #dc2626;
+
+    width: auto;
+
+    padding:
+        12px 18px;
+
+}
+
+
+/* ========================================
+   HISTORY
+======================================== */
+
+.history-card {
+
+    background: #1e293b;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.history-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+
+}
+
+
+.history-header h2 {
+
+    font-size: 19px;
+
+}
+
+
+.history-header span {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+}
+
+
+.empty-history {
+
+    text-align: center;
+
+    color: #64748b;
+
+    padding: 20px;
+
+}
+
+
+.history-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px;
+
+    background: #0f172a;
+
+    border-radius: 10px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.history-value {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #22c55e;
+
+}
+
+
+.history-confidence {
+
+    font-size: 12px;
+
+    color: #94a3b8;
+
+}
+
+
+/* ========================================
+   INFORMATION
+======================================== */
+
+.info-card {
+
+    background: #172033;
+
+    border-left: 4px solid #2563eb;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.info-card h2 {
+
+    font-size: 18px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.info-card p {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-top: 8px;
+
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    padding: 20px;
+
+}
+
+
+footer p {
+
+    margin-top: 5px;
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 500px) {
+
+    .app {
+
+        padding: 12px;
+
+    }
+
+
+    .header h1 {
+
+        font-size: 23px;
+
+    }
+
+
+    .logo {
+
+        width: 50px;
+
+        height: 50px;
+
+        font-size: 26px;
+
+    }
+
+
+    .controls {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .result-value {
+
+        font-size: 45px;
+
+    }
+
+
+    .total-value {
+
+        font-size: 27px;
+
+    }
+
+}
